@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laptop Store</title>
+    <style>
+        .error-message{
+            position: absolute;
+            top: 5%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 400px;
+            padding: 20px;
+            border-radius: 16px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            color: #fff;
+            text-align: center;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+            display: none;
+            background-color: #e57373;
+        }
+        .success-message{
+            position: absolute;
+            top: 5%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 400px;
+            padding: 20px;
+            border-radius: 16px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            color: #fff;
+            text-align: center;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+            display: none;
+            background-color: #81c784;
+        }
+    </style>
+</head>
+
+<body>
+    <div th:if="${param.error}">
+        <div id="error" class="error-message">
+            <p>Invalid email or password!</p>
+        </div>
+    </div>
+
+    <div th:if="${param.logout}">
+        <div id="logout" class="success-message">
+            <p>Logged out successfully!</p>
+        </div>
+    </div>
+
+    <div th:if="${param.accessDenied}">
+        <div id="unauthorized" class="error-message">
+            <p>Unauthorized Access!</p>
+        </div>
+    </div>
+
+    <div th:if="${param.success}">
+        <div id="success" class="success-message">
+            <p>Registration successful!</p>
+        </div>
+    </div>
+
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            ['error', 'logout', 'unauthorized', 'success'].forEach(showMessage);
+
+            function showMessage(type) {
+                var element = document.getElementById(type);
+                if (element) {
+                    element.style.cssText = 'display: block; opacity: 1;';
+                    setTimeout(function() {
+                        element.style.cssText = 'opacity: 0; display: none;';
+                    }, 2000);
+                }
+            }
+        });
+    </script>
+</body>
+</html>
